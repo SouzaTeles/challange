@@ -26,8 +26,10 @@ function getYear($date){
 }
 $initialDays = getdays($input_initial_date);
 $initialDays += getMonth($input_initial_date) * 30; //Aproximado
+$initialDays += getYear($input_initial_date) * 365; //Aproximado
 
 $finalDays = getdays($input_final_date);
 $finalDays += getMonth($input_final_date) * 30;
+$finalDays += getYear($input_final_date) * 365;
 
 echo ($finalDays - $initialDays) . " dias";
