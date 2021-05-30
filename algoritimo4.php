@@ -18,9 +18,9 @@ $array = explode(',', $input_array);
 function trianguloPossivel($l1, $l2, $l3)
 {
     $possivel = true;
-    $possivel = $possivel && (($l1 + $l2) > $l3) ? true : false;
-    $possivel = $possivel && (($l1 + $l3) > $l2) ? true : false;
-    $possivel = $possivel && (($l2 + $l3) > $l1) ? true : false;
+    $possivel = $possivel && (($l1 + $l2) > $l3);
+    $possivel = $possivel && (($l1 + $l3) > $l2);
+    $possivel = $possivel && (($l2 + $l3) > $l1);
     return $possivel;
 }
 if (trianguloPossivel($array[0], $array[1], $array[2])) {
