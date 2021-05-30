@@ -23,6 +23,21 @@ function trianguloPossivel($l1, $l2, $l3)
     $possivel = $possivel && (($l2 + $l3) > $l1);
     return $possivel;
 }
+for ($i = 0; $i < count($array); $i++) {
+    for ($j = 0; $j < count($array); $j++) {
+        if ($j != $i) {
+            for ($k = 0; $k < count($array); $k++) {
+                if ($k != $j && $k != $i) {
+                    if(trianguloPossivel($array[$i], $array[$j], $array[$k])){
+                        echo "triangulo possivel com os valores $array[$i], $array[$j], $array[$k]\n";
+                    } else {
+                        echo "triangulo impossivel com os valores $array[$i], $array[$j], $array[$k]\n";
+                    };
+                }
+            }
+        }
+    }
+}
 if (trianguloPossivel($array[0], $array[1], $array[2])) {
     echo "Possivel";
 } else {
