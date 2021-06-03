@@ -13,7 +13,9 @@ if (!defined("STDIN")) {
 echo "Insira 6 números (separados por virgula):\n";
 
 $input_array = trim(fgets(STDIN, 1024));
-$array = explode(',', $input_array);
+$numeros = explode(',', $input_array);
+$triangulosCriados = [];
+$triangulosPossiveis = 0;
 
 function trianguloPossivel($l1, $l2, $l3)
 {
@@ -23,23 +25,39 @@ function trianguloPossivel($l1, $l2, $l3)
     $possivel = $possivel && (($l2 + $l3) > $l1);
     return $possivel;
 }
-for ($i = 0; $i < count($array); $i++) {
-    for ($j = 0; $j < count($array); $j++) {
+function triangleName($idx1, $idx2, $idx3)
+{
+    $arestas = ['A', 'B', 'C', 'D', 'E', 'F'];
+    return [$arestas[$idx1], $arestas[$idx2], $arestas[$idx3]];
+}
+function trianguloExiste($triangulos, $arestas){
+    if(empty($triangulos)){
+        return false;
+    }
+    foreach($triangulos as $triangulo){
+        if(!array_diff($arestas, $triangulo)){
+            return true;
+        }
+    }
+    return false;
+}
+for ($i = 0; $i < count($numeros); $i++) {
+    for ($j = 0; $j < count($numeros); $j++) {
         if ($j != $i) {
-            for ($k = 0; $k < count($array); $k++) {
+            for ($k = 0; $k < count($numeros); $k++) {
                 if ($k != $j && $k != $i) {
-                    if(trianguloPossivel($array[$i], $array[$j], $array[$k])){
-                        echo "triangulo possivel com os valores $array[$i], $array[$j], $array[$k]\n";
-                    } else {
-                        echo "triangulo impossivel com os valores $array[$i], $array[$j], $array[$k]\n";
-                    };
+                    if (trianguloPossivel($numeros[$i], $numeros[$j], $numeros[$k])) {
+                        $trianguloArestas = triangleName($i, $j, $k);
+                        if(!trianguloExiste($triangulosCriados, $trianguloArestas)){
+                            $triangulosCriados[] = $trianguloArestas;
+                            echo "triangulo " . implode('', $trianguloArestas) . " possivel com os valores $numeros[$i], $numeros[$j], $numeros[$k]\n";
+                            $triangulosPossiveis++;
+                        }
+                    }
                 }
             }
         }
     }
 }
-if (trianguloPossivel($array[0], $array[1], $array[2])) {
-    echo "Possivel";
-} else {
-    echo "impossivel";
-}
+
+echo "$triangulosPossiveis triangulos possiveis";
